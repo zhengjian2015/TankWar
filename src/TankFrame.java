@@ -1,13 +1,16 @@
+
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class TankFrame extends Frame {
 
     Tank myTank = new Tank(200,200,Dir.DOWN,this);
-    Bullet b = new Bullet(300,300,Dir.DOWN);
+    java.util.List<Bullet> bullets = new ArrayList<>();
 
     static final int GAME_WIDTH = 1080, GAME_HEIGHT = 960;
 
@@ -42,17 +45,32 @@ public class TankFrame extends Frame {
         gOffScreen.setColor(c);
         paint(gOffScreen);
         g.drawImage(offScreenImage, 0, 0, null);
+
     }
 
 
     //显示的时候会调 graphics 是画笔
     @Override
     public void paint(Graphics g) {
-        //System.out.println("panit");
+        //通过观察可以发现子弹永远在增加，会有堆内存溢出的风险，也叫内存泄漏
+        //内存泄漏总是伴随着容器的使用
+        Color c = g.getColor();
+        g.setColor(Color.WHITE);
+        g.drawString("子弹的数量"+bullets.size(),10,60);
+        g.setColor(c);
         //离原点左上角 的距离
         myTank.paint(g);
         //调用paint在显示器上画出来
-        b.paint(g);
+        //解决 java.util.ConcurrentModificationException
+        for(int i=0;i<bullets.size();i++) {
+            bullets.get(i).paint(g);
+        }
+
+  /*      另一种避免异常的方式
+  for(Iterator<Bullet> it = bullets.iterator();it.hasNext()) {
+            Bullet b = it.next();
+            if(!b.live) it.remove();
+        }*/
 
     }
 
