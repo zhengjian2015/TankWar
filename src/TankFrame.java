@@ -6,10 +6,13 @@ import java.awt.event.WindowEvent;
 
 public class TankFrame extends Frame {
 
-    Tank myTank = new Tank(200,200,Dir.DOWN);
+    Tank myTank = new Tank(200,200,Dir.DOWN,this);
+    Bullet b = new Bullet(300,300,Dir.DOWN);
+
+    static final int GAME_WIDTH = 1080, GAME_HEIGHT = 960;
 
     public TankFrame() {
-        setSize(800,600);
+        setSize(GAME_WIDTH,GAME_HEIGHT);
         setResizable(false);
         setTitle("tank War");
         setVisible(true);
@@ -25,6 +28,22 @@ public class TankFrame extends Frame {
         });
     }
 
+    Image offScreenImage = null;
+    //处理闪烁问题
+    @Override
+    public void update(Graphics g) {
+        if (offScreenImage == null) {
+            offScreenImage = this.createImage(GAME_WIDTH, GAME_HEIGHT);
+        }
+        Graphics gOffScreen = offScreenImage.getGraphics();
+        Color c = gOffScreen.getColor();
+        gOffScreen.setColor(Color.BLACK);
+        gOffScreen.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+        gOffScreen.setColor(c);
+        paint(gOffScreen);
+        g.drawImage(offScreenImage, 0, 0, null);
+    }
+
 
     //显示的时候会调 graphics 是画笔
     @Override
@@ -32,6 +51,8 @@ public class TankFrame extends Frame {
         //System.out.println("panit");
         //离原点左上角 的距离
         myTank.paint(g);
+        //调用paint在显示器上画出来
+        b.paint(g);
 
     }
 
@@ -82,6 +103,11 @@ public class TankFrame extends Frame {
                 case KeyEvent.VK_DOWN:
                     bD = false;
                     break;
+
+                case KeyEvent.VK_CONTROL:
+                    myTank.fire();
+                    break;
+
                 default:
                     break;
             }
@@ -90,10 +116,15 @@ public class TankFrame extends Frame {
         }
 
         private void setMainTankDir() {
-            if(bL) myTank.setDir(Dir.LEFT);
-            if(bU) myTank.setDir(Dir.UP);
-            if(bR) myTank.setDir(Dir.RIGHT);
-            if(bD) myTank.setDir(Dir.DOWN);
+            if(!bL && !bU && !bR && !bD) {
+                myTank.setMoving(false);
+            } else {
+                myTank.setMoving(true);
+                if (bL) myTank.setDir(Dir.LEFT);
+                if (bU) myTank.setDir(Dir.UP);
+                if (bR) myTank.setDir(Dir.RIGHT);
+                if (bD) myTank.setDir(Dir.DOWN);
+            }
         }
 
     }
