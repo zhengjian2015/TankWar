@@ -8,6 +8,9 @@ public class Tank {
     //要想在tank内部把子弹画出来，需要有窗口的引用
     private TankFrame tf = null;
 
+    public static int WIDTH = ResourceMgr.tankD.getWidth();
+    public static int HEIGHT = ResourceMgr.tankD.getHeight();
+
     public boolean isMoving() {
         return moving;
     }
@@ -35,11 +38,21 @@ public class Tank {
 
 
     public void paint(Graphics g) {
-        Color c = g.getColor();
-        //可以这样理解把 笔粘一下红的，画出东西，再把笔恢复成原来的颜色
-        g.setColor(Color.YELLOW);
-        g.fillRect(x,y,50,50);
-        g.setColor(c);
+        switch (dir) {
+            case DOWN:
+                g.drawImage(ResourceMgr.tankD,x,y,null);
+                break;
+            case UP:
+                g.drawImage(ResourceMgr.tankU,x,y,null);
+                break;
+            case RIGHT:
+                g.drawImage(ResourceMgr.tankR,x,y,null);
+                break;
+            case LEFT:
+                g.drawImage(ResourceMgr.tankL,x,y,null);
+                break;
+        }
+
         move();
     }
 
@@ -62,7 +75,11 @@ public class Tank {
     }
 
     public void fire() {
-        tf.bullets.add(new Bullet(this.x,this.y,this.dir,this.tf));
+
+        int bX = this.x + Tank.WIDTH/2 - Bullet.WIDTH/2;
+        int bY = this.y + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
+
+        tf.bullets.add(new Bullet(bX,bY,this.dir,this.tf));
     }
 
 }

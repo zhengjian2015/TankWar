@@ -7,7 +7,7 @@ public class Bullet {
 
     private static final int SPEED = 5;
 
-    private static int WIDTH = 20, HEIGHT = 20;
+    //private static int WIDTH = 20, HEIGHT = 20;
 
     private int x, y;
 
@@ -16,6 +16,9 @@ public class Bullet {
     private boolean live = true;
 
     private TankFrame tf = null;
+
+    public static int WIDTH = ResourceMgr.bulletD.getWidth();
+    public static int HEIGHT = ResourceMgr.bulletD.getHeight();
 
     public Bullet(int x, int y, Dir dir,TankFrame tf) {
         this.x = x;
@@ -29,11 +32,20 @@ public class Bullet {
             tf.bullets.remove(this);
         }
 
-        Color c = g.getColor();
-        //可以这样理解把 笔粘一下红的，画出东西，再把笔恢复成原来的颜色
-        g.setColor(Color.RED);
-        g.fillOval(x,y,WIDTH,HEIGHT);
-        g.setColor(c);
+        switch (dir) {
+            case DOWN:
+                g.drawImage(ResourceMgr.bulletD,x,y,null);
+                break;
+            case UP:
+                g.drawImage(ResourceMgr.bulletU,x,y,null);
+                break;
+            case RIGHT:
+                g.drawImage(ResourceMgr.bulletR,x,y,null);
+                break;
+            case LEFT:
+                g.drawImage(ResourceMgr.bulletL,x,y,null);
+                break;
+        }
 
         move();
     }
