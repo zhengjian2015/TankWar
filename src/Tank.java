@@ -7,6 +7,7 @@ public class Tank {
     private static final int SPEED = 10;
     //要想在tank内部把子弹画出来，需要有窗口的引用
     private TankFrame tf = null;
+    private boolean living = true;
 
     public static int WIDTH = ResourceMgr.tankD.getWidth();
     public static int HEIGHT = ResourceMgr.tankD.getHeight();
@@ -21,7 +22,23 @@ public class Tank {
 
     private boolean moving = false;
 
-    public Tank(int x, int y, Dir dir,TankFrame tf) {
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public Tank(int x, int y, Dir dir, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
@@ -38,6 +55,7 @@ public class Tank {
 
 
     public void paint(Graphics g) {
+        if(!living) tf.tanks.remove(this);
         switch (dir) {
             case DOWN:
                 g.drawImage(ResourceMgr.tankD,x,y,null);
@@ -82,4 +100,7 @@ public class Tank {
         tf.bullets.add(new Bullet(bX,bY,this.dir,this.tf));
     }
 
+    public void die() {
+        this.living = false;
+    }
 }
