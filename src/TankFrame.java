@@ -11,6 +11,7 @@ public class TankFrame extends Frame {
     Tank myTank = new Tank(200,400,Dir.DOWN,Group.GOOD,this);
     java.util.List<Bullet> bullets = new ArrayList<>();
     java.util.List<Tank> tanks = new ArrayList<>();
+    java.util.List<Explode> explodes = new ArrayList<>();
 
     static final int GAME_WIDTH = 1080, GAME_HEIGHT = 960;
 
@@ -77,6 +78,10 @@ public class TankFrame extends Frame {
             }
         }
 
+        for(int i=0;i<explodes.size();i++) {
+            explodes.get(i).paint(g);
+        }
+        //e.paint(g);
   /*      另一种避免异常的方式
   for(Iterator<Bullet> it = bullets.iterator();it.hasNext()) {
             Bullet b = it.next();
