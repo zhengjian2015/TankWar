@@ -1,13 +1,16 @@
 import java.awt.*;
+import java.util.Random;
 
 public class Tank {
     private int x;
     private int y;
     private Dir dir = Dir.DOWN;
-    private static final int SPEED = 10;
+    private static final int SPEED = 5;
     //要想在tank内部把子弹画出来，需要有窗口的引用
     private TankFrame tf = null;
     private boolean living = true;
+    private Random random = new Random();
+    private Group group = Group.BAD;
 
     public static int WIDTH = ResourceMgr.tankD.getWidth();
     public static int HEIGHT = ResourceMgr.tankD.getHeight();
@@ -20,7 +23,7 @@ public class Tank {
         this.moving = moving;
     }
 
-    private boolean moving = false;
+    private boolean moving = true;
 
     public int getX() {
         return x;
@@ -38,10 +41,19 @@ public class Tank {
         this.y = y;
     }
 
-    public Tank(int x, int y, Dir dir, TankFrame tf) {
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.group = group;
         this.tf = tf;
     }
 
@@ -75,7 +87,7 @@ public class Tank {
     }
 
     private void move() {
-        if (moving)
+        if (!moving) return;
         switch (dir) {
             case LEFT:
                 x -= SPEED;
@@ -90,6 +102,8 @@ public class Tank {
                 x += SPEED;
                 break;
         }
+        if(random.nextInt(10) > 8) this.fire();
+            //射子弹的概率
     }
 
     public void fire() {
@@ -97,7 +111,8 @@ public class Tank {
         int bX = this.x + Tank.WIDTH/2 - Bullet.WIDTH/2;
         int bY = this.y + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
 
-        tf.bullets.add(new Bullet(bX,bY,this.dir,this.tf));
+        Bullet b = new Bullet(bX, bY, this.dir,this.group,this.tf);
+        tf.bullets.add(b);
     }
 
     public void die() {
