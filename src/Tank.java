@@ -102,8 +102,23 @@ public class Tank {
                 x += SPEED;
                 break;
         }
-        if(random.nextInt(10) > 8) this.fire();
+        if(this.group == Group.BAD && random.nextInt(100) > 95) this.fire();
             //射子弹的概率
+        if(this.group == Group.BAD && random.nextInt(100) > 95)
+            randomDir();
+        //边界检查
+        boundsCheck();
+    }
+
+    private void boundsCheck() {
+        if (this.x < 2) x = 2;
+        if (this.y < 28) y = 28;
+        if (this.x > TankFrame.GAME_WIDTH- Tank.WIDTH -2) x = TankFrame.GAME_WIDTH - Tank.WIDTH -2;
+        if (this.y > TankFrame.GAME_HEIGHT - Tank.HEIGHT -2 ) y = TankFrame.GAME_HEIGHT -Tank.HEIGHT -2;
+    }
+
+    private void randomDir() {
+        this.dir = Dir.values()[random.nextInt(4)];
     }
 
     public void fire() {
