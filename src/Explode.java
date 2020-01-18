@@ -5,7 +5,7 @@ import java.awt.*;
  */
 public class Explode {
 
-    private static int WIDTH = ResourceMgr.explodes[0].getWidth(), HEIGHT = ResourceMgr.explodes[0].getHeight();
+    public static int WIDTH = ResourceMgr.explodes[0].getWidth(), HEIGHT = ResourceMgr.explodes[0].getHeight();
 
     private int x, y;
 
