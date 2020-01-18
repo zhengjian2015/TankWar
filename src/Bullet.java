@@ -19,6 +19,8 @@ public class Bullet {
 
     private Group group;
 
+    Rectangle rect = new Rectangle();
+
     public static int WIDTH = ResourceMgr.bulletD.getWidth();
     public static int HEIGHT = ResourceMgr.bulletD.getHeight();
 
@@ -30,6 +32,11 @@ public class Bullet {
         this.dir = dir;
         this.group = group;
         this.tf = tf;
+
+        rect.x = x;
+        rect.y = y;
+        rect.width = WIDTH;
+        rect.height = HEIGHT;
     }
 
     public void paint(Graphics g) {
@@ -71,6 +78,11 @@ public class Bullet {
                 break;
         }
 
+
+        //update rect
+        rect.x = this.x;
+        rect.y = this.y;
+
         if(x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) living = false;
     }
 
@@ -80,11 +92,9 @@ public class Bullet {
         if(this.group == tank.getGroup()) return;
         //子弹的方块
         //TODO 用一个rect来记录子弹的位置 否则垃圾收集器运行频繁 影响性能
-        Rectangle rect1 = new Rectangle(this.x,this.y,WIDTH,HEIGHT);
-        //坦克的方块
-        Rectangle rect2 = new Rectangle(tank.getX(),tank.getY(),Tank.WIDTH,Tank.HEIGHT);
+        //-Xmx10m -Xms10m -XX:+PrintGC 后发现轻GC从三次变为了两次
         //两个方块相交 敌人才会碰撞
-        if(rect1.intersects(rect2)) {
+        if(this.rect.intersects(tank.rect)) {
             tank.die();
             this.die();
             //爆炸效果

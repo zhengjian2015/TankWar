@@ -12,6 +12,8 @@ public class Tank {
     private Random random = new Random();
     private Group group = Group.BAD;
 
+    Rectangle rect = new Rectangle();
+
     public static int WIDTH = ResourceMgr.goodTankU.getWidth();
     public static int HEIGHT = ResourceMgr.goodTankU.getHeight();
 
@@ -55,6 +57,11 @@ public class Tank {
         this.dir = dir;
         this.group = group;
         this.tf = tf;
+
+        rect.x = this.x;
+        rect.y = this.y;
+        rect.width = WIDTH;
+        rect.height = HEIGHT;
     }
 
     public Dir getDir() {
@@ -108,6 +115,10 @@ public class Tank {
             randomDir();
         //边界检查
         boundsCheck();
+
+
+        rect.x = this.x;
+        rect.y = this.y;
     }
 
     private void boundsCheck() {
