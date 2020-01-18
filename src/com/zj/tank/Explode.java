@@ -1,3 +1,5 @@
+package com.zj.tank;
+
 import java.awt.*;
 
 /**
@@ -16,7 +18,7 @@ public class Explode {
 
 
 
-    public Explode(int x, int y,TankFrame tf) {
+    public Explode(int x, int y, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.tf = tf;

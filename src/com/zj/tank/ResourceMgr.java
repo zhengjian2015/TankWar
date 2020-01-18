@@ -1,4 +1,5 @@
-import javax.annotation.Resource;
+package com.zj.tank;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;

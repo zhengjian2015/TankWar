@@ -1,3 +1,5 @@
+package com.zj.tank;
+
 import java.awt.*;
 import java.util.Random;
 
@@ -125,7 +127,7 @@ public class Tank {
         if (this.x < 2) x = 2;
         if (this.y < 28) y = 28;
         if (this.x > TankFrame.GAME_WIDTH- Tank.WIDTH -2) x = TankFrame.GAME_WIDTH - Tank.WIDTH -2;
-        if (this.y > TankFrame.GAME_HEIGHT - Tank.HEIGHT -2 ) y = TankFrame.GAME_HEIGHT -Tank.HEIGHT -2;
+        if (this.y > TankFrame.GAME_HEIGHT - Tank.HEIGHT -2 ) y = TankFrame.GAME_HEIGHT - Tank.HEIGHT -2;
     }
 
     private void randomDir() {

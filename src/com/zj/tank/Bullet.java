@@ -1,3 +1,5 @@
+package com.zj.tank;
+
 import java.awt.*;
 
 /**
@@ -26,7 +28,7 @@ public class Bullet {
 
 
 
-    public Bullet(int x, int y, Dir dir,Group group, TankFrame tf) {
+    public Bullet(int x, int y, Dir dir, Group group, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
