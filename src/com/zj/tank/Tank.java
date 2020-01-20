@@ -4,17 +4,20 @@ import java.awt.*;
 import java.util.Random;
 
 public class Tank {
-    private int x;
-    private int y;
+    int x;
+    int y;
     private Dir dir = Dir.DOWN;
     private static final int SPEED = 5;
     //要想在tank内部把子弹画出来，需要有窗口的引用
-    private TankFrame tf = null;
+    TankFrame tf = null;
     private boolean living = true;
     private Random random = new Random();
     private Group group = Group.BAD;
 
     Rectangle rect = new Rectangle();
+
+
+    FireStrategy fs;
 
     public static int WIDTH = ResourceMgr.goodTankU.getWidth();
     public static int HEIGHT = ResourceMgr.goodTankU.getHeight();
@@ -64,6 +67,9 @@ public class Tank {
         rect.y = this.y;
         rect.width = WIDTH;
         rect.height = HEIGHT;
+
+        if(group == Group.GOOD) fs = new FourDirFireStrategy();
+        else fs = new DefaultFireStrategy();
     }
 
     public Dir getDir() {
@@ -136,11 +142,7 @@ public class Tank {
 
     public void fire() {
 
-        int bX = this.x + Tank.WIDTH/2 - Bullet.WIDTH/2;
-        int bY = this.y + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
-
-        Bullet b = new Bullet(bX, bY, this.dir,this.group,this.tf);
-        tf.bullets.add(b);
+        fs.fire(this);
     }
 
     public void die() {
