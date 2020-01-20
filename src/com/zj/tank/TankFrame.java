@@ -1,5 +1,10 @@
 package com.zj.tank;
 
+import com.zj.tank.abstractfactory.BaseExplode;
+import com.zj.tank.abstractfactory.DefaultFactory;
+import com.zj.tank.abstractfactory.GameFactory;
+import com.zj.tank.abstractfactory.RectFactory;
+
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -12,9 +17,11 @@ public class TankFrame extends Frame {
     Tank myTank = new Tank(200,400, Dir.DOWN, Group.GOOD,this);
     java.util.List<Bullet> bullets = new ArrayList<>();
     java.util.List<Tank> tanks = new ArrayList<>();
-    java.util.List<Explode> explodes = new ArrayList<>();
+    public java.util.List<BaseExplode> explodes = new ArrayList<>();
 
     static final int GAME_WIDTH = 1080, GAME_HEIGHT = 960;
+
+    public GameFactory gf = new DefaultFactory();
 
     public TankFrame() {
         setSize(GAME_WIDTH,GAME_HEIGHT);
