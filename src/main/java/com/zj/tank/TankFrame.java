@@ -10,9 +10,9 @@ import java.util.ArrayList;
 public class TankFrame extends Frame {
 
     Tank myTank = new Tank(200,400, Dir.DOWN, Group.GOOD,this);
-    java.util.List<Bullet> bullets = new ArrayList<>();
-    java.util.List<Tank> tanks = new ArrayList<>();
-    java.util.List<Explode> explodes = new ArrayList<>();
+    java.util.List<Bullet> bullets = new java.util.ArrayList<>();
+    java.util.List<Tank> tanks = new java.util.ArrayList<>();
+    java.util.List<Explode> explodes = new java.util.ArrayList<>();
 
     static final int GAME_WIDTH = 1080, GAME_HEIGHT = 960;
 

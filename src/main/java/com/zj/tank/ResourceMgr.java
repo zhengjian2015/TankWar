@@ -17,6 +17,7 @@ public class ResourceMgr {
 
     static{
         try {
+            //加入maven后把图片 配置文件放到 resources文件夹里了
             goodTankU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/GoodTank1.png"));
             goodTankL = ImageUtil.rotateImage(goodTankU, -90);
             goodTankR = ImageUtil.rotateImage(goodTankU, 90);

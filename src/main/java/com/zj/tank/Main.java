@@ -10,6 +10,7 @@ public class Main {
         for(int i=0;i<initTankCoount;i++){
             tf.tanks.add(new Tank(50+i*80,200, Dir.DOWN, Group.BAD,tf));
         }
+
         //需要调repaint刷新
         while (true) {
             Thread.sleep(50);
