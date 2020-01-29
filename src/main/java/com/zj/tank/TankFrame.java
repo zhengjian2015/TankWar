@@ -6,15 +6,28 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class TankFrame extends Frame {
 
+    public static final TankFrame INSTANCE = new TankFrame();
+
     Tank myTank = new Tank(200,400, Dir.DOWN, Group.GOOD,this);
     java.util.List<Bullet> bullets = new java.util.ArrayList<>();
-    java.util.List<Tank> tanks = new java.util.ArrayList<>();
+    //java.util.List<Tank> tanks = new java.util.ArrayList<>();
     java.util.List<Explode> explodes = new java.util.ArrayList<>();
+    Map<UUID,Tank> tanks = new HashMap<>();
+
 
     static final int GAME_WIDTH = 1080, GAME_HEIGHT = 960;
+
+    public void addTank(Tank t) {
+        tanks.put(t.getId(), t);
+    }
+
+
 
     public TankFrame() {
         setSize(GAME_WIDTH,GAME_HEIGHT);
@@ -34,6 +47,21 @@ public class TankFrame extends Frame {
     }
 
     Image offScreenImage = null;
+
+    public Bullet findBulletByUUID(UUID id) {
+        for(int i=0; i<bullets.size(); i++) {
+            if(bullets.get(i).getId().equals(id))
+                return bullets.get(i);
+        }
+
+        return null;
+    }
+
+    public Tank findTankByUUID(UUID id) {
+        return tanks.get(id);
+    }
+
+
     //处理闪烁问题
     @Override
     public void update(Graphics g) {
@@ -162,5 +190,9 @@ public class TankFrame extends Frame {
             }
         }
 
+    }
+
+    public Tank getMainTank() {
+        return this.myTank;
     }
 }

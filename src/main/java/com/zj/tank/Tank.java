@@ -2,6 +2,7 @@ package com.zj.tank;
 
 import java.awt.*;
 import java.util.Random;
+import java.util.UUID;
 
 public class Tank {
     private int x;
@@ -13,6 +14,8 @@ public class Tank {
     private boolean living = true;
     private Random random = new Random();
     private Group group = Group.BAD;
+
+    private UUID id = UUID.randomUUID();
 
     Rectangle rect = new Rectangle();
 
@@ -72,6 +75,10 @@ public class Tank {
 
     public void setDir(Dir dir) {
         this.dir = dir;
+    }
+
+    public UUID getId() {
+        return id;
     }
 
 

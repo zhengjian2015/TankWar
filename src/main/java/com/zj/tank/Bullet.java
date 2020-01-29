@@ -1,6 +1,7 @@
 package com.zj.tank;
 
 import java.awt.*;
+import java.util.UUID;
 
 /**
  * 子弹
@@ -21,12 +22,16 @@ public class Bullet {
 
     private Group group;
 
+    private UUID id = UUID.randomUUID();
+
     Rectangle rect = new Rectangle();
 
     public static int WIDTH = ResourceMgr.bulletD.getWidth();
     public static int HEIGHT = ResourceMgr.bulletD.getHeight();
 
-
+    public UUID getId() {
+        return id;
+    }
 
     public Bullet(int x, int y, Dir dir, Group group, TankFrame tf) {
         this.x = x;

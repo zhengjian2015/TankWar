@@ -42,4 +42,6 @@ public class TankJoinMsgCodecTest {
         assertEquals(Group.BAD, g);
         assertEquals(id, uuid);
     }
+
+
 }
